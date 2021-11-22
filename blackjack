@@ -1,1 +1,175 @@
-hiiiiiiiiii
+import random
+from art import logo, card_art, blank_card
+
+print(logo)
+
+cards = {'A': 11, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6, 7: 7, 8: 8, 9: 9, 10: 10, 'J': 10, 'Q': 10, 'K': 10}
+
+def add(n1, n2):
+	return n1 + n2
+
+def blackjack():
+	x = 'n'
+	while x == 'n':
+		
+		x = input('Are you ready to play? Type \'y\' or \'n\': ')
+
+
+	dealer_card1 = random.choice(list(cards.keys()))
+
+	print('Dealer\'s hand:\n', card_art[dealer_card1], blank_card)
+
+	x = 'n'
+	while x == 'n':
+		
+		x = input('Are you ready to draw? Type \'y\' or \'n\': ')
+
+	list_of_Acards = []
+
+	chosen_card1 = random.choice(list(cards.keys()))
+
+	if chosen_card1 == 'A':
+		list_of_Acards.append(chosen_card1)
+
+	chosen_card2 = random.choice(list(cards.keys()))
+
+	if chosen_card2 == 'A':
+		list_of_Acards.append(chosen_card2)
+	
+
+
+	print('Your cards:\n', card_art[chosen_card1], card_art[chosen_card2])
+
+
+	cardvalue1 = cards[chosen_card1]
+	cardvalue2 = cards[chosen_card2]
+
+	sum_cards = add(cardvalue1, cardvalue2)
+
+	no_of_Acards = len(list_of_Acards)
+
+	if no_of_Acards == 2:
+		sum_cards = 12
+		no_of_Acards -= 1 
+
+	
+
+	print(f'\nHand value: {sum_cards}\n')
+
+	another = input("Press 'y' to hit and 'n' to stand: ")
+	
+
+	dsum_cards = 0
+		
+
+	while another == 'y':
+
+		previous_sum = sum_cards
+
+		new_card = random.choice(list(cards.keys()))
+
+		if new_card == 'A':
+			list_of_Acards.append(new_card)
+			no_of_Acards = len(list_of_Acards)
+
+
+		print(card_art[new_card])
+
+		new_card_value = cards[new_card]			
+
+		sum_cards = add(previous_sum, new_card_value)
+
+		if no_of_Acards > 0 and sum_cards > 21:
+			sum_cards -= 10
+			no_of_Acards -= 1
+
+
+
+
+		
+
+		
+
+		print(f'\nNew hand value: {sum_cards}\n')
+
+
+		if sum_cards > 21:
+			
+
+			print(f'Ooooooops! You\'ve gone bust.\n\nDealer wins.')
+			break
+		
+		another = input("Press 'y' to hit and 'n' to stand: ")
+
+	if sum_cards <= 21:
+		dealer_card2 = random.choice(list(cards.keys()))
+		print('Dealer\'s hand:\n', card_art[dealer_card1], card_art[dealer_card2])
+		
+		dcardvalue1 = cards[dealer_card1]
+
+		dcardvalue2 = cards[dealer_card2]	
+
+		dsum_cards = add(dcardvalue1, dcardvalue2)
+
+		dlist_of_Acards = []
+
+		if dealer_card1 == 'A':
+			dlist_of_Acards.append(dealer_card1)
+		if dealer_card2 == 'A':
+			dlist_of_Acards.append(dealer_card2)
+
+		dno_of_Acards = len(dlist_of_Acards)
+
+		if dno_of_Acards == 2:
+			dsum_cards = 12
+			dno_of_Acards -= 1 
+
+		while dsum_cards < 17:
+
+			previous_sum = dsum_cards
+
+			dnew_card = random.choice(list(cards.keys()))
+
+			if dnew_card == 'A':
+				dlist_of_Acards.append(new_card)
+				dno_of_Acards = len(list_of_Acards)
+
+
+			print(card_art[dnew_card])
+
+			dnew_card_value = cards[dnew_card]
+
+			dsum_cards = add(previous_sum, dnew_card_value)
+
+			if dno_of_Acards > 0 and dsum_cards > 21:
+				sum_cards -= 10
+				no_of_Acards -= 1
+
+			
+
+			
+				
+				
+		
+
+		print(f'\nThe dealer\'s final hand is: {dsum_cards}')
+
+	while dsum_cards != 0:
+		if dsum_cards == sum_cards:
+			print('\nYou draw.')
+		if dsum_cards == 21:
+			print('Blackjack! Dealer wins.')
+		if dsum_cards > 21:
+			print('\nThe dealer has gone bust. You win!!')
+		elif dsum_cards > sum_cards:
+			print('\nThe dealer wins.')
+		elif dsum_cards < sum_cards:
+			print('\nYou win!!')
+		break
+
+	total_repeat = input('\nWould you like to play again? Type \'y\' or \'n\' ')
+	
+	if total_repeat == 'y':
+		blackjack()
+
+blackjack()
