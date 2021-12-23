@@ -1,0 +1,52 @@
+import colorgram
+
+colors = colorgram.extract('hirstpainting.jpeg', 20)
+
+ rgb_colors = []
+
+ for color in colors:
+     r = color.rgb.r
+     g = color.rgb.g
+     b = color.rgb.b
+     new_color = (r, g, b)
+     rgb_colors.append(new_color)
+
+import turtle as t
+import random as r
+
+color_list = [(234, 225, 93), (233, 49, 133), (213, 158, 105), (115, 177, 214), (212, 133, 177), (196, 75, 23),
+              (193, 163, 14), (36, 103, 168), (33, 192, 111), (11, 22, 65), (235, 225, 2), (183, 45, 124),
+              (122, 189, 156), (189, 10, 68), (23, 28, 169), (237, 161, 203)]
+
+t.colormode(255)
+
+turtle = t.Turtle()
+turtle.hideturtle()
+
+
+initial_x = -350
+initial_y = -300
+
+turtle.penup()
+turtle.setpos(initial_x, initial_y)
+turtle.speed('fastest')
+
+def row():
+    for i in range(13):
+        turtle.forward(50)
+        turtle.dot(20, r.choice(color_list))
+
+
+def new_row():
+    new_y = turtle.ycor() + 50
+    return turtle.setpos(initial_x, new_y)
+
+
+
+while turtle.position() != (-350.00, 350.00):
+    row()
+    new_row()
+
+
+screen = t.Screen()
+screen.exitonclick()
